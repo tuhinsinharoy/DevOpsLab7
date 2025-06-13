@@ -30,6 +30,7 @@ jobs:
       - name: Correcting Permission
         run: |
           tar -cvf output.tar index.html style.css script.js
+          sudo chown azureuser output.tar
           chmod 664 output.tar 
 
       - name: Upload files to Azure VM
