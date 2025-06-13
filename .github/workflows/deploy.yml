@@ -27,25 +27,11 @@ jobs:
           ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} \
           'sudo rm -rf /var/www/html/*'
 
-      - name: Correcting Permission
-        run: |
-          tar -cvf output.tar index.html style.css script.js
-          sudo chown azureuser output.tar
-          chmod 664 output.tar 
-
       - name: Upload files to Azure VM
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.AZURE_VM_IP }}
           username: ${{ secrets.AZURE_VM_USER }}
           password: ${{ secrets.AZURE_VM_PASSWORD }}
-          source: "output.tar"
+          source: "index.html,style.css,script.js"
           target: "/var/www/html"
-
-      - name: Unzipping Tar File
-        run: |
-            sudo apt-get install sshpass -y
-            sshpass -p "${{ secrets.AZURE_VM_PASSWORD }}" \
-            ssh -o StrictHostKeyChecking=no \
-            ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} \
-            'tar -xvf /var/www/html/output.tar'
