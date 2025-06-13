@@ -27,6 +27,12 @@ jobs:
           ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_IP }} \
           'sudo rm -rf /var/www/html/*'
 
+      - name: Correcting Permission
+        run: |
+          chmod 664 index.html
+          chmod 664 style.css
+          chmod 664 script.js
+
       - name: Upload files to Azure VM
         uses: appleboy/scp-action@master
         with:
