@@ -29,9 +29,9 @@ jobs:
 
       - name: Correcting Permission
         run: |
-          chmod 664 index.html
-          chmod 664 style.css
-          chmod 664 script.js
+          chmod 777 index.html
+          chmod 777 style.css
+          chmod 777 script.js
 
       - name: Upload files to Azure VM
         uses: appleboy/scp-action@master
